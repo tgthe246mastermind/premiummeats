@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Your Order - Alpha Farms</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #D32F2F;
+            --secondary-color: #B71C1C;
+            --light-gray: #f9f9f9;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --white: #fff;
+            --success-color: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--light-gray);
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: var(--white);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .header h1 {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--dark-gray);
+            font-size: 1.1rem;
+        }
+
+        .order-details {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .order-details h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .order-summary {
+            background: #f4f4f4;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 15px;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .total-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .total-section h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+
+        .total-amount {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .total-text {
+            color: var(--dark-gray);
+            font-size: 0.95rem;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: #25D366;
+            color: #fff;
+            padding: 18px;
+            margin-top: 10px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            background: #1ebe5b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .note {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-cart i {
+            font-size: 5rem;
+            color: #ddd;
+            margin-bottom: 25px;
+            display: block;
+        }
+
+        .empty-cart h3 {
+            color: var(--dark-gray);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .empty-cart p {
+            font-size: 1.1rem;
+        }
+
+        .empty-cart a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .empty-cart a:hover {
+            text-decoration: underline;
+        }
+
+        .cart-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px auto;
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .cart-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .order-summary {
+                font-size: 14px;
+            }
+            
+            .total-amount {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .order-summary {
+                max-height: 300px;
+            }
+            
+            .container {
+                margin: 10px auto;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-receipt"></i> Alpha Farms Order</h1>
+            <p>Review your order and send directly to WhatsApp</p>
+        </div>
+
+        <div id="orderContent">
+            <!-- Empty Cart Message -->
+            <div id="emptyCartMessage" class="empty-cart" style="display: none;">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Your Cart is Empty</h3>
+                <p>No items in your cart. <a href="index.html#products">Continue Shopping</a></p>
+            </div>
+
+            <!-- Order Summary -->
+            <div id="orderSummary" style="display: none;">
+                <!-- Cart Statistics -->
+                <div class="cart-stats">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalItems">0</span>
+                        <span class="stat-label">Items</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalTypes">0</span>
+                        <span class="stat-label">Products</span>
+                    </div>
+                </div>
+
+                <!-- Order Details -->
+                <div class="order-details">
+                    <h3><i class="fas fa-list"></i> Order Summary</h3>
+                    <div class="order-summary" id="orderDetails">Loading order...</div>
+                </div>
+
+                <!-- Total Section -->
+                <div class="total-section">
+                    <h4><i class="fas fa-dollar-sign"></i> Total Amount</h4>
+                    <div class="total-amount" id="grandTotal">$0.00</div>
+                    <div class="total-text">BBD - Delivery fees may apply</div>
+                </div>
+
+                <!-- WhatsApp Button -->
+                <a id="whatsappBtn" class="btn" style="display: none;" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Send Order to WhatsApp
+                </a>
+                
+                <p class="note">
+                    <i class="fas fa-info-circle"></i> Your order will be sent directly to Alpha Farms WhatsApp for immediate processing. 
+                    Please include your contact details in the message.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve the order from localStorage
+            const cart = JSON.parse(localStorage.getItem('order') || '[]');
+            const emptyCartMessage = document.getElementById("emptyCartMessage");
+            const orderSummary = document.getElementById("orderSummary");
+            const orderDetailsEl = document.getElementById("orderDetails");
+            const whatsappBtn = document.getElementById("whatsappBtn");
+            const grandTotalEl = document.getElementById("grandTotal");
+            const totalItemsEl = document.getElementById("totalItems");
+            const totalTypesEl = document.getElementById("totalTypes");
+
+            // Check if cart is empty
+            if (cart.length === 0) {
+                emptyCartMessage.style.display = "block";
+                orderSummary.style.display = "none";
+                return;
+            }
+
+            // Show order summary
+            emptyCartMessage.style.display = "none";
+            orderSummary.style.display = "block";
+
+            // Calculate totals
+            let subtotal = 0;
+            const itemCount = cart.reduce((sum, item) => sum + (item.Quantity || 0), 0);
+            const uniqueProducts = cart.length;
+
+            cart.forEach(item => {
+                subtotal += item.SalesPrice * (item.Quantity || 1);
+            });
+
+            // Build the order message
+            const messageLines = [
+                "🛒 *ALPHA FARMS ORDER* 🛒",
+                "================================",
+                ""
+            ];
+
+            cart.forEach((item, i) => {
+                const itemTotal = item.SalesPrice * (item.Quantity || 1);
+                messageLines.push(`${i + 1}. *${item.Name}*`);
+                messageLines.push(`   Qty: ${item.Quantity || 1} × $${item.SalesPrice.toFixed(2)} = $${itemTotal.toFixed(2)}`);
+                messageLines.push("");
+            });
+
+            messageLines.push("================================");
+            messageLines.push(`*SUBTOTAL: $${subtotal.toFixed(2)} BBD*`);
+            messageLines.push("");
+            messageLines.push("📱 *Please include your contact details:*");
+            messageLines.push("• Full Name");
+            messageLines.push("• Phone Number");
+            messageLines.push("• Delivery/Pickup preference");
+            messageLines.push("• Special instructions (if any)");
+            messageLines.push("");
+            messageLines.push("⏰ *Delivery available* - Monday to Saturday");
+            messageLines.push("================================");
+            messageLines.push("Thank you for choosing Alpha Farms! 🌾");
+
+            const fullMessage = messageLines.join("\n");
+
+            // Display the order summary
+            orderDetailsEl.textContent = fullMessage;
+
+            // Update UI elements
+            grandTotalEl.textContent = `$${subtotal.toFixed(2)}`;
+            totalItemsEl.textContent = itemCount;
+            totalTypesEl.textContent = uniqueProducts;
+
+            // Set up WhatsApp link
+            const phoneNumber = "12462691875"; // Alpha Farms WhatsApp
+            whatsappBtn.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(fullMessage)}`;
+            whatsappBtn.style.display = "block";
+
+            // Add click animation
+            whatsappBtn.addEventListener('click', function() {
+                // Clear cart after successful order
+                setTimeout(() => {
+                    localStorage.removeItem('order');
+                    // Optionally redirect back to products
+                    // window.location.href = 'index.html#products';
+                }, 2000);
+            });
+
+            // Add some visual polish
+            orderDetailsEl.style.opacity = '0';
+            orderDetailsEl.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                orderDetailsEl.style.transition = 'all 0.5s ease';
+                orderDetailsEl.style.opacity = '1';
+                orderDetailsEl.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
