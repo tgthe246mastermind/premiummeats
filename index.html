@@ -21,6 +21,9 @@
             --dark-color: #212121; /* Near black */
             --light-color: #F5F5F5; /* Light gray/almost white */
             --text-color: #333333;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
             --transition: all 0.3s ease;
         }
 
@@ -39,18 +42,15 @@
             width: 85%;
             max-width: 1200px;
             margin: 0 auto;
-            
         }
 
         section {
             padding: 80px 0;
-          
         }
 
         .section-header {
             text-align: center;
             margin-bottom: 50px;
-            
         }
 
         .section-header h2 {
@@ -77,11 +77,44 @@
             font-weight: 500;
             transition: var(--transition);
             border: 2px solid var(--primary-color);
+            cursor: pointer;
         }
 
         .btn:hover {
             background-color: transparent;
             color: var(--primary-color);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .add-to-cart-btn {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            border-radius: 20px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: transparent;
+            color: var(--success-color);
+        }
+
+        .add-to-cart-btn.added {
+            background-color: var(--warning-color);
+            border-color: var(--warning-color);
+            color: #212529;
         }
 
         img {
@@ -157,8 +190,7 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-meat.jpg');
-             background-image: url('https://www.themeatman.co.uk/cdn/shop/files/High-Protein-Meats_2048x.jpg?v=1736865103');
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://www.themeatman.co.uk/cdn/shop/files/High-Protein-Meats_2048x.jpg?v=1736865103');
             background-size: cover;
             background-position: center;
             color: white;
@@ -173,7 +205,7 @@
         }
 
         .hero-content h1 span {
-            color: var(--primary-color);
+            color: white;
         }
 
         .hero-content p {
@@ -257,6 +289,240 @@
             color: var(--primary-color);
             font-weight: 600;
             margin-top: 5px;
+            font-size: 1.1rem;
+        }
+
+        /* Cart Summary Styles */
+        .cart-summary {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-top: 40px;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--light-color);
+        }
+
+        .cart-header h3 {
+            color: var(--dark-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cart-toggle {
+            background: none;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .cart-toggle:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .cart-tally {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: var(--light-color);
+            border-radius: 5px;
+        }
+
+        .cart-total {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .cart-items {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: var(--light-color);
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 3px solid var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .cart-item:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .cart-item.removing {
+            animation: slideOut 0.3s ease-out forwards;
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+        }
+
+        .cart-item-details {
+            flex: 1;
+            margin-right: 15px;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary-color);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 5px 0;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid #ddd;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: var(--transition);
+            color: var(--text-color);
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .quantity-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .quantity-display {
+            min-width: 35px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1rem;
+            padding: 0 8px;
+        }
+
+        .item-total {
+            font-weight: 600;
+            color: var(--primary-color);
+            min-width: 70px;
+            text-align: right;
+            font-size: 1rem;
+        }
+
+        .delete-item {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .delete-item:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+
+        .delete-item.removing {
+            background: var(--warning-color);
+            color: var(--dark-color);
+        }
+
+        .empty-cart-message {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .empty-cart-message i {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        .empty-cart-message h4 {
+            color: var(--dark-color);
+            margin-bottom: 10px;
+        }
+
+        .order-now-btn {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .order-now-btn:hover {
+            background-color: transparent;
+            color: var(--success-color);
+        }
+
+        /* Services Section */
+        .services {
+            background-color: #f9f9f9;
         }
 
         /* CTA Section */
@@ -294,14 +560,23 @@
         }
 
         .contact-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
         }
 
         .contact-item {
             display: flex;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
+            align-items: flex-start;
         }
 
         .contact-item i {
@@ -315,29 +590,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
         .contact-item h3 {
             font-size: 1.2rem;
             margin-bottom: 5px;
+            color: var(--dark-color);
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .contact-item p {
+            margin: 0;
+            color: var(--text-color);
         }
 
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Poppins', sans-serif;
-            transition: var(--transition);
+        .contact-item a {
+            color: var(--text-color);
+            text-decoration: none;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: var(--primary-color);
+        .contact-item a:hover {
+            color: var(--primary-color);
         }
 
         /* Footer */
@@ -422,7 +696,7 @@
 
         /* Responsive Design */
         @media (max-width: 992px) {
-            .about-content, .contact-content {
+            .about-content {
                 grid-template-columns: 1fr;
             }
             .about-image {
@@ -471,22 +745,44 @@
             .footer-logo {
                 grid-column: span 1;
             }
+            .contact-card {
+                padding: 30px 20px;
+            }
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .quantity-controls {
+                order: 3;
+                width: 100%;
+                justify-content: flex-start;
+            }
+            .item-total {
+                order: 2;
+                align-self: flex-end;
+                margin-bottom: 10px;
+            }
+            .delete-item {
+                order: 4;
+                align-self: flex-end;
+            }
         }
 
-        
     </style>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="logo">
-                <img src="https://www.meatyourmaker.com/dw/image/v2/BCNX_PRD/on/demandware.static/-/Sites-meat-master/default/dw87799aab/images/Decals/1149518_2000x1128-Low-Quality.jpg?sw=1000&sh=584" class="meat-logo" alt="PrimeMeats Farm Logo" style="width: 200px; height: auto;">
+                <img src="logo.jpeg" class="meat-logo" alt="Alpha Farms Logo" style="width: 100px; height: auto;">
             </div>
             <nav>
                 <ul class="nav-links">
                     <li><a href="#home" class="active">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#products">Products</a></li>
+                    <li><a href="#services">Services</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="mobile-nav-toggle">
@@ -499,7 +795,7 @@
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <h1>Welcome to <span>PrimeMeats Farm</span></h1>
+                <h1>Welcome to <span>Alpha Farms</span></h1>
                 <p>Quality Pork & Lamb Since 2015</p>
                 <a href="#contact" class="btn">Contact Us</a>
             </div>
@@ -514,11 +810,11 @@
             </div>
             <div class="about-content">
                 <div class="about-image">
-                    <img src="https://www.shutterstock.com/image-photo/black-belly-sheep-barbados-grazing-600nw-1447381262.jpg"  style = "border-radius: 20px; " alt="PrimeMeats Farm Livestock">
+                    <img src="hero.jpeg" style="border-radius: 20px;" alt="Alpha Farms Livestock">
                 </div>
                 <div class="about-text">
                     <h3>Your Partner in Premium Meat</h3>
-                    <p>PrimeMeats Farm is a trusted name in the livestock industry, specializing in high-quality pork and Black Belly lamb. With a decade of experience, we prioritize ethical farming practices and sustainable meat production.</p>
+                    <p>Alpha Farms is a trusted name in the livestock industry, specializing in high-quality pork and Black Belly lamb. With a decade of experience, we prioritize ethical farming practices and sustainable meat production.</p>
                     <p>Our mission is to deliver nutritious, flavorful meat to our customers while supporting local farming communities and ensuring animal welfare.</p>
                     <div class="stats">
                         <div class="stat-item">
@@ -546,76 +842,174 @@
                 <div class="underline"></div>
             </div>
             <div class="product-grid">
-                <!-- Pork Products -->
+                <!-- Pork Cuts -->
+                <div class="product-card" data-product='{"Name":"Leg/Shoulder Chops","SalesPrice":9.50}'>
+                    <div class="product-info">
+                        <h3>Leg/Shoulder Chops</h3>
+                        <p>Premium pork leg and shoulder chops</p>
+                        <p class="price">$9.50/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Loin Chops","SalesPrice":9.50}'>
+                    <div class="product-info">
+                        <h3>Loin Chops</h3>
+                        <p>Tender and flavorful pork loin chops</p>
+                        <p class="price">$9.50/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Spare Ribs","SalesPrice":10.00}'>
+                    <div class="product-info">
+                        <h3>Spare Ribs</h3>
+                        <p>Meaty pork spare ribs perfect for grilling</p>
+                        <p class="price">$10.00/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Stew Meat","SalesPrice":9.50}'>
+                    <div class="product-info">
+                        <h3>Stew Meat</h3>
+                        <p>Perfect pork cuts for hearty stews</p>
+                        <p class="price">$9.50/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <!-- Souse Corner -->
+                <div class="product-card" data-product='{"Name":"Souse Meat","SalesPrice":9.50}'>
+                    <div class="product-info">
+                        <h3>Souse Meat</h3>
+                        <p>Traditional souse meat preparation</p>
+                        <p class="price">$9.50/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Hocks","SalesPrice":8.00}'>
+                    <div class="product-info">
+                        <h3>Hocks</h3>
+                        <p>Savory pork hocks for slow cooking</p>
+                        <p class="price">$8.00/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Knuckles/Feet","SalesPrice":6.00}'>
+                    <div class="product-info">
+                        <h3>Knuckles/Feet</h3>
+                        <p>Traditional pork knuckles and feet</p>
+                        <p class="price">$6.00/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Tongues","SalesPrice":11.00}'>
+                    <div class="product-info">
+                        <h3>Tongues</h3>
+                        <p>Premium pork tongues for specialty dishes</p>
+                        <p class="price">$11.00/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Ears","SalesPrice":14.00}'>
+                    <div class="product-info">
+                        <h3>Ears</h3>
+                        <p>Crispy pork ears for snacking</p>
+                        <p class="price">$14.00/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Flaps","SalesPrice":10.00}'>
+                    <div class="product-info">
+                        <h3>Flaps</h3>
+                        <p>Versatile pork belly flaps</p>
+                        <p class="price">$10.00/lb</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Pig Head - Whole","SalesPrice":20.00}'>
+                    <div class="product-info">
+                        <h3>Pig Head - Whole</h3>
+                        <p>Whole pig head for traditional dishes</p>
+                        <p class="price">$20.00</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+                <div class="product-card" data-product='{"Name":"Pig Head - Deboned","SalesPrice":25.00}'>
+                    <div class="product-info">
+                        <h3>Pig Head - Deboned</h3>
+                        <p>Deboned pig head, ready to cook</p>
+                        <p class="price">$25.00</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(this)">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cart Summary -->
+            <div class="cart-summary">
+                <div class="cart-header">
+                    <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                    <button class="cart-toggle" onclick="toggleCartView()" id="cartToggle">
+                        <span id="toggleText">Hide Items</span>
+                    </button>
+                </div>
+                
+                <div class="cart-tally">
+                    <span>Items in Cart: <span id="cartCount">0</span></span>
+                    <span class="cart-total">Total: $<span id="cartTotal">0.00</span></span>
+                </div>
+                
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart-message" id="emptyCartMessage">
+                        <i class="fas fa-shopping-bag"></i>
+                        <h4>Your cart is empty</h4>
+                        <p>Add some delicious products to get started!</p>
+                    </div>
+                </div>
+                
+                <a href="order.html" class="btn order-now-btn" id="orderBtn" style="display: none;">Order Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Our Services</h2>
+                <div class="underline"></div>
+            </div>
+            <div class="product-grid">
                 <div class="product-card">
                     <div class="product-info">
-                        <h3>Tenderloin</h3>
-                        <p>Juicy and tender pork tenderloin.</p>
-                        <p class="price">$12.99/lb</p>
+                        <h3><i class="fas fa-home"></i> Farm Visits & Consultation</h3>
+                        <p>Expert farm visits and professional consultations</p>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-info">
-                        <h3>Ribs</h3>
-                        <p>Flavorful pork ribs, perfect for grilling.</p>
-                        <p class="price">$9.99/lb</p>
+                        <h3><i class="fas fa-truck"></i> Pet/Livestock Transportation</h3>
+                        <p>Safe and reliable pet and livestock transportation services</p>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-info">
-                        <h3>Bacon</h3>
-                        <p>Smoked and crispy pork bacon.</p>
-                        <p class="price">$7.49/lb</p>
+                        <h3><i class="fas fa-cut"></i> Piglet Castration</h3>
+                        <p>Professional piglet castration services</p>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-info">
-                        <h3>Shoulder</h3>
-                        <p>Versatile pork shoulder for roasts.</p>
-                        <p class="price">$6.99/lb</p>
+                        <h3><i class="fas fa-stethoscope"></i> Livestock Pregnancy Detection</h3>
+                        <p>Accurate pregnancy detection for livestock</p>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-info">
-                        <h3>Offal (Liver, Heart, etc.)</h3>
-                        <p>Nutritious pork offal for specialty dishes.</p>
-                        <p class="price">$4.99/lb</p>
-                    </div>
-                </div>
-                <!-- Black Belly Lamb Products -->
-                <div class="product-card">
-                    <div class="product-info">
-                        <h3>Leg</h3>
-                        <p>Tender Black Belly lamb leg.</p>
-                        <p class="price">$14.99/lb</p>
+                        <h3><i class="fas fa-pills"></i> Medication Administration</h3>
+                        <p>Professional medication administration for your animals</p>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-info">
-                        <h3>Chops</h3>
-                        <p>Juicy Black Belly lamb chops.</p>
-                        <p class="price">$13.99/lb</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-info">
-                        <h3>Shoulder</h3>
-                        <p>Flavorful Black Belly lamb shoulder.</p>
-                        <p class="price">$11.99/lb</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-info">
-                        <h3>Ground</h3>
-                        <p>Lean Black Belly ground lamb.</p>
-                        <p class="price">$10.49/lb</p>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-info">
-                        <h3>Offal (Liver, Kidney, etc.)</h3>
-                        <p>Rich Black Belly lamb offal.</p>
-                        <p class="price">$5.99/lb</p>
+                        <h3><i class="fas fa-warehouse"></i> Carcass Collection</h3>
+                        <p>Efficient carcass collection and processing services</p>
                     </div>
                 </div>
             </div>
@@ -625,7 +1019,7 @@
     <section class="cta">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to Order from PrimeMeats?</h2>
+                <h2>Ready to Order from Alpha Farms?</h2>
                 <p>Join our satisfied customers and enjoy premium pork and lamb.</p>
                 <a href="#contact" class="btn">Get in Touch</a>
             </div>
@@ -639,52 +1033,35 @@
                 <div class="underline"></div>
             </div>
             <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3>Our Location</h3>
-                            <p>456 Meat Lane, Livestock District<br>Redville, 67890</p>
-                        </div>
-                    </div>
+                <div class="contact-card">
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <div>
                             <h3>Phone Number</h3>
-                            <p>+1 (555) 987-6543</p>
+                            <p>(246) 269-1875</p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3>Email Address</h3>
-                            <p><a href="mailto:[email protected]">[email protected]</a></p>
+                            <p><a href="mailto:info@alphafarms.com">info@alphafarms.com</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
                         <div>
                             <h3>Working Hours</h3>
-                            <p>Monday - Friday: 8am - 6pm<br>Saturday: 9am - 1pm<br>Currently 05:12 PM AST, outside hours</p>
+                            <p>Monday - Saturday: 8am - 6pm<br>Delivery Available</p>
                         </div>
                     </div>
-                </div>
-                <div class="contact-form">
-                    <form>
-                        <div class="form-group">
-                            <input type="text" placeholder="Your Name" required>
+                    <div class="contact-item">
+                        <i class="fab fa-instagram"></i>
+                        <div>
+                            <h3>Follow Us</h3>
+                            <p><a href="https://instagram.com/alphafarms246">@alphafarms246</a></p>
                         </div>
-                        <div class="form-group">
-                            <input type="email" placeholder="Your Email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="Subject">
-                        </div>
-                        <div class="form-group">
-                            <textarea placeholder="Your Message" rows="5" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -694,8 +1071,8 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">
-<!--                     <img src="logo-meat.png" alt="PrimeMeats Farm Logo"> -->
-                    <p>Quality Pork & Lamb Since 2015</p>
+                    <img src="logo.jpeg" alt="Alpha Farms Logo">
+                    <p>Quality Pork Since 2015</p>
                 </div>
                 <div class="footer-links">
                     <h3>Quick Links</h3>
@@ -703,6 +1080,7 @@
                         <li><a href="#home">Home</a></li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#products">Products</a></li>
+                        <li><a href="#services">Services</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -710,25 +1088,166 @@
                     <h3>Follow Us</h3>
                     <div class="social-icons">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com/alphafarms246"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>© 2025 PrimeMeats Farm. All Rights Reserved.</p>
+                <p>© 2025 Alpha Farms. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
+        // Cart functionality
+        let cart = JSON.parse(localStorage.getItem('order') || '[]');
+        let cartVisible = true;
+
+        function addToCart(button) {
+            const productCard = button.closest('.product-card');
+            const productData = JSON.parse(productCard.dataset.product);
+            const existingItem = cart.find(item => item.Name === productData.Name);
+            
+            if (existingItem) {
+                existingItem.Quantity = (existingItem.Quantity || 1) + 1;
+            } else {
+                productData.Quantity = 1;
+                cart.push(productData);
+            }
+            
+            localStorage.setItem('order', JSON.stringify(cart));
+            updateCartDisplay();
+            
+            // Enhanced visual feedback
+            button.classList.add('added');
+            button.innerHTML = '<i class="fas fa-check"></i> Added!';
+            button.style.transform = 'scale(0.98)';
+            
+            setTimeout(() => {
+                button.classList.remove('added');
+                button.innerHTML = 'Add to Cart';
+                button.style.transform = 'scale(1)';
+            }, 1500);
+        }
+
+        function removeFromCart(productName) {
+            // Add visual feedback
+            const itemElement = document.querySelector(`[onclick="removeFromCart('${productName}')"]`).closest('.cart-item');
+            if (itemElement) {
+                itemElement.classList.add('removing');
+                itemElement.querySelector('.delete-item').classList.add('removing');
+            }
+            
+            setTimeout(() => {
+                cart = cart.filter(item => item.Name !== productName);
+                localStorage.setItem('order', JSON.stringify(cart));
+                updateCartDisplay();
+            }, 300);
+        }
+
+        function updateQuantity(productName, change) {
+            const item = cart.find(item => item.Name === productName);
+            if (item) {
+                const oldQuantity = item.Quantity || 1;
+                item.Quantity = Math.max(1, oldQuantity + change);
+                
+                // Visual feedback for quantity change
+                const quantityDisplay = document.querySelector(`[onclick="updateQuantity('${productName}', 1)"]`).parentElement.querySelector('.quantity-display');
+                if (quantityDisplay) {
+                    quantityDisplay.style.transform = 'scale(1.2)';
+                    setTimeout(() => {
+                        quantityDisplay.style.transform = 'scale(1)';
+                    }, 200);
+                }
+                
+                if (item.Quantity <= 0) {
+                    removeFromCart(productName);
+                } else {
+                    localStorage.setItem('order', JSON.stringify(cart));
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        function updateCartDisplay() {
+            const cartCount = cart.reduce((sum, item) => sum + (item.Quantity || 0), 0);
+            const cartTotal = cart.reduce((sum, item) => sum + (item.SalesPrice * (item.Quantity || 0)), 0);
+            const cartItemsEl = document.getElementById('cartItems');
+            const emptyCartMessage = document.getElementById('emptyCartMessage');
+            const cartCountEl = document.getElementById('cartCount');
+            const cartTotalEl = document.getElementById('cartTotal');
+            const orderBtn = document.getElementById('orderBtn');
+            
+            cartCountEl.textContent = cartCount;
+            cartTotalEl.textContent = cartTotal.toFixed(2);
+            orderBtn.style.display = cartCount > 0 ? 'inline-block' : 'none';
+            
+            if (cartCount > 0) {
+                emptyCartMessage.style.display = 'none';
+                if (cartVisible) {
+                    renderCartItems();
+                }
+            } else {
+                emptyCartMessage.style.display = 'block';
+                cartItemsEl.innerHTML = '';
+            }
+        }
+
+        function renderCartItems() {
+            const cartItemsEl = document.getElementById('cartItems');
+            if (cart.length === 0) {
+                cartItemsEl.innerHTML = '';
+                return;
+            }
+            
+            cartItemsEl.innerHTML = cart.map(item => {
+                const itemTotal = item.SalesPrice * (item.Quantity || 1);
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <div class="cart-item-name">${item.Name}</div>
+                            <div class="cart-item-price">$${item.SalesPrice.toFixed(2)} each</div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="updateQuantity('${item.Name}', -1)" ${item.Quantity <= 1 ? 'disabled' : ''}>−</button>
+                                <span class="quantity-display">Qty: ${item.Quantity || 1}</span>
+                                <button class="quantity-btn" onclick="updateQuantity('${item.Name}', 1)">+</button>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <span class="item-total">$${itemTotal.toFixed(2)}</span>
+                            <button class="delete-item" onclick="removeFromCart('${item.Name}')" title="Remove ${item.Name} from cart">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function toggleCartView() {
+            cartVisible = !cartVisible;
+            const cartItemsEl = document.getElementById('cartItems');
+            const toggleText = document.getElementById('toggleText');
+            
+            if (cartVisible) {
+                renderCartItems();
+                toggleText.textContent = 'Hide Items';
+                cartItemsEl.style.display = 'block';
+            } else {
+                cartItemsEl.innerHTML = '';
+                toggleText.textContent = 'Show Items';
+                cartItemsEl.style.display = 'none';
+            }
+        }
+
         // Mobile navigation toggle
         const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
         const navLinks = document.querySelector('.nav-links');
-        mobileNavToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        if (mobileNavToggle) {
+            mobileNavToggle.addEventListener('click', () => {
+                navLinks.classList.toggle('active');
+            });
+        }
 
         // Smooth scroll for navigation links
         document.querySelectorAll('.nav-links a').forEach(anchor => {
@@ -743,6 +1262,14 @@
                     navLinks.classList.remove('active');
                 }
             });
+        });
+
+        // Initialize cart display on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            if (cart.length > 0) {
+                renderCartItems();
+            }
         });
     </script>
 </body>
